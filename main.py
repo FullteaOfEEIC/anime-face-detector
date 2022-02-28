@@ -128,7 +128,11 @@ def main():
 
     saver.restore(sess, args.model)
 
-    result = {}
+    if args.output and os.path.exists(args.ourput):
+        with open(args.output, "r") as fp:
+            result = json.load(fp)
+    else:
+        result = {}
 
     time_start = time.time()
 
@@ -136,6 +140,8 @@ def main():
         elapsed = time.time() - time_start
         eta = (file_len - idx) * elapsed / idx if idx > 0 else 0
         print('[%d/%d] Elapsed: %s, ETA: %s >> %s' % (idx+1, file_len, fmt_time(elapsed), fmt_time(eta), file))
+        if file in result:
+            continue
         img = cv2.imread(file)
         if img is None:
             continue
