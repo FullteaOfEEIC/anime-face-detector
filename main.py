@@ -128,7 +128,7 @@ def main():
 
     saver.restore(sess, args.model)
 
-    if args.output and os.path.exists(args.ourput):
+    if args.output and os.path.exists(args.output):
         with open(args.output, "r") as fp:
             result = json.load(fp)
     else:
