@@ -7,6 +7,7 @@ import os
 import json
 import time
 from nms_wrapper import NMSType, NMSWrapper
+from tqdm.auto import tqdm
 
 
 def detect(sess, rcnn_cls, image):
@@ -136,10 +137,9 @@ def main():
 
     time_start = time.time()
 
-    for idx, file in enumerate(files):
+    for idx, file in tqdm(enumerate(files)):
         elapsed = time.time() - time_start
         eta = (file_len - idx) * elapsed / idx if idx > 0 else 0
-        print('[%d/%d] Elapsed: %s, ETA: %s >> %s' % (idx+1, file_len, fmt_time(elapsed), fmt_time(eta), file))
         if file in result:
             continue
         img = cv2.imread(file)
