@@ -140,6 +140,7 @@ def main():
     for idx, file in tqdm(enumerate(files)):
         elapsed = time.time() - time_start
         eta = (file_len - idx) * elapsed / idx if idx > 0 else 0
+        print('[%d/%d] Elapsed: %s, ETA: %s >> %s' % (idx+1, file_len, fmt_time(elapsed), fmt_time(eta), file))
         if file in result:
             continue
         img = cv2.imread(file)
